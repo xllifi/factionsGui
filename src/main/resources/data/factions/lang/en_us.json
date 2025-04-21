@@ -53,6 +53,7 @@
     "factions.gui.list.title": "Factions list",
     "factions.gui.list.entry.view_info": "Click to view faction info.",
     "factions.gui.list.entry.teleport": "Right-click to teleport to faction home.",
+    "factions.gui.list.entry.declare": "Drop (Q) to edit relationship.",
 
     "factions.gui.members.title": "%s members list (%s)",
     "factions.gui.members.entry.unknown_player": "No info available",
@@ -119,6 +120,11 @@
     "factions.gui.modify.faction_type": "Faction type: %s",
     "factions.gui.modify.faction_type.public": "Public",
     "factions.gui.modify.faction_type.invite": "Invite only",
+
+    "factions.gui.declare.title": "Declare %s...",
+    "factions.gui.declare.enemy": "An enemy",
+    "factions.gui.declare.neutral": "Neutral",
+    "factions.gui.declare.ally": "An ally",
 
     "factions.gui.generic.unknown_player": "{Unknown Player}",
     "factions.gui.generic.close": "Close",

@@ -8,6 +8,7 @@ import io.icker.factions.api.persistents.User;
 import io.icker.factions.command.HomeCommand;
 import io.icker.factions.util.GuiInteract;
 import io.icker.factions.util.Icons;
+import io.icker.factions.util.Command.Requires;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Style;
@@ -23,7 +24,8 @@ public class ListGui extends PagedGui {
     int size;
     User user;
 
-    public ListGui(ServerPlayerEntity player, User user, @Nullable Runnable closeCallback) {
+    public ListGui(ServerPlayerEntity player, User user, @Nullable
+    Runnable closeCallback) {
         super(player, closeCallback);
         this.user = user;
 
@@ -57,30 +59,44 @@ public class ListGui extends PagedGui {
             icon.setSkullOwner(isInFaction ? Icons.GUI_CASTLE_NORMAL : Icons.GUI_CASTLE_OPEN);
             icon.setName(Text.literal(faction.getColor() + faction.getName()));
 
-            List<Text> lore = new ArrayList<>(List.of(Text.literal(faction.getDescription())
-                    .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GRAY))));
-            if (isInFaction && home != null) {
-                lore.add(Text.translatable("factions.gui.list.entry.view_info")
-                        .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GRAY)));
-                lore.add(Text.translatable("factions.gui.list.entry.teleport")
-                        .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.DARK_AQUA)));
-                icon.setCallback((index, clickType, actionType) -> {
-                    GuiInteract.playClickSound(player);
-                    if (clickType == ClickType.MOUSE_RIGHT) {
-                        new HomeCommand().execGo(player, faction);
-                        this.close();
-                        return;
-                    }
-                    new InfoGui(player, faction, this::open);
-                });
-            } else {
-                lore.add(Text.translatable("factions.gui.list.entry.view_info")
-                        .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GRAY)));
-                icon.setCallback((index, clickType, actionType) -> {
-                    GuiInteract.playClickSound(player);
-                    new InfoGui(player, faction, this::open);
-                });
+            List<Text> lore = new ArrayList<>(
+                List.of(
+                    Text.literal(faction.getDescription())
+                        .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GRAY))
+                )
+            );
+            lore.add(
+                Text.translatable("factions.gui.list.entry.view_info")
+                    .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GRAY))
+            );
+
+            boolean canHome = isInFaction && home != null;
+            if (canHome) {
+                lore.add(
+                    Text.translatable("factions.gui.list.entry.teleport")
+                        .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.DARK_AQUA))
+                );
             }
+            boolean canDeclare = Requires.isLeader().test(player.getCommandSource());
+            if (canDeclare) {
+                lore.add(
+                    Text.translatable("factions.gui.list.entry.declare")
+                        .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GRAY))
+                );
+            }
+            icon.setCallback((index, clickType, actionType) -> {
+                GuiInteract.playClickSound(player);
+                if (canHome && clickType == ClickType.MOUSE_RIGHT) {
+                    new HomeCommand().execGo(player, faction);
+                    this.close();
+                    return;
+                }
+                if (canDeclare && clickType == ClickType.DROP) {
+                    new DeclareGui(player, faction, this::open);
+                    return;
+                }
+                new InfoGui(player, faction, this::open);
+            });
             icon.setLore(lore);
 
             return DisplayElement.of(icon);
