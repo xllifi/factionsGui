@@ -97,7 +97,7 @@ public class MemberGui extends PagedGui {
                     Text
                         .translatable(
                             "factions.gui.members.entry.info.rank",
-                            Text.literal(targetUser.getRankName())
+                            Text.translatable("factions.gui.members.entry.info.rank." + targetUser.getRankName())
                                 .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GREEN))
                         )
                         .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GRAY))
@@ -222,7 +222,7 @@ public class MemberGui extends PagedGui {
                         Text
                             .translatable(
                                 "factions.gui.members.entry.info.rank",
-                                Text.literal(targetUser.getRankName())
+                                Text.translatable("factions.gui.members.entry.info.rank." + targetUser.getRankName())
                                     .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GREEN))
                             )
                             .setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GRAY))

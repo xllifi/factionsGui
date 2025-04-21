@@ -30,6 +30,9 @@ public class DeclareGui extends SimpleGui {
 
         this.setTitle(Text.translatable("factions.gui.declare.title", faction.getName().formatted(faction.getColor())));
 
+        for (int i = 0; i < 9; i++)
+            this.setSlot(i, new GuiElementBuilder(Items.WHITE_STAINED_GLASS_PANE).hideTooltip());
+
         if (Requires.hasPerms("factions.declare.enemy", 0).test(player.getCommandSource())) {
             this.setSlot(
                 2,
