@@ -27,7 +27,7 @@
     "factions.gui.power.setfaction.default": "Faction Name",
     "factions.gui.power.setfaction.fail.no_faction": "No such faction!",
     "factions.gui.power.setpower.title": "Specify power...",
-    "factions.gui.power.setpower.default": "Power Level",
+    "factions.gui.power.setpower.default": "Power Change (e.g. 10 or -5)",
     "factions.gui.power.setpower.fail.nan": "Not a number!",
     "factions.gui.power.success.nochange": "No change to power",
     "factions.gui.power.success.added.admin": "Added %d power",

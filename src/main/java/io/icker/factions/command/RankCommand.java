@@ -25,37 +25,44 @@ public class RankCommand implements Command {
 
         if (target.getUuid().equals(player.getUuid())) {
             new Message(Text.translatable("factions.command.rank.promote.fail.self"))
-                    .fail().send(player, false);
+                .fail().send(player, false);
 
             return 0;
         }
 
         Faction faction = Command.getUser(player).getFaction();
 
-        for (User user : faction.getUsers())
+        for (
+            User user : faction.getUsers()
+        )
             if (user.getID().equals(target.getUuid())) {
 
                 try {
                     execPromote(user, player);
                 } catch (Exception e) {
                     new Message(e.getMessage()).fail()
-                            .send(player, false);
+                        .send(player, false);
                     return 0;
                 }
 
                 context.getSource().getServer().getPlayerManager().sendCommandTree(target);
 
-                new Message(Text.translatable("factions.command.rank.promote.success",
+                new Message(
+                    Text.translatable(
+                        "factions.command.rank.promote.success",
                         target.getName().getString(),
-                        Text.translatable("factions.command.rank." + User.get(target.getUuid()).getRankName())))
-                        .prependFaction(faction).send(player, false);
+                        Text.translatable("factions.command.rank." + User.get(target.getUuid()).getRankName())
+                    )
+                )
+                    .prependFaction(faction).send(player, false);
 
                 return 1;
             }
 
         new Message(
-                Text.translatable("factions.command.rank.promote.fail.not_in_faction", target.getName().getString()))
-                .fail().send(player, false);
+            Text.translatable("factions.command.rank.promote.fail.not_in_faction", target.getName().getString())
+        )
+            .fail().send(player, false);
         return 0;
     }
 
@@ -81,34 +88,41 @@ public class RankCommand implements Command {
 
         if (target.getUuid().equals(player.getUuid())) {
             new Message(Text.translatable("factions.command.rank.demote.fail.self"))
-                    .fail().send(player, false);
+                .fail().send(player, false);
             return 0;
         }
 
         Faction faction = Command.getUser(player).getFaction();
 
-        for (User user : faction.getUsers())
+        for (
+            User user : faction.getUsers()
+        )
             if (user.getID().equals(target.getUuid())) {
 
                 try {
                     execDemote(user, player);
                 } catch (Exception e) {
                     new Message(e.getMessage()).fail()
-                            .send(player, false);
+                        .send(player, false);
                     return 0;
                 }
 
                 context.getSource().getServer().getPlayerManager().sendCommandTree(target);
 
-                new Message(Text.translatable("factions.command.rank.demote.success", target.getName().getString(),
-                        Text.translatable("factions.command.rank." + User.get(target.getUuid()).getRankName())))
-                        .prependFaction(faction).send(player, false);
+                new Message(
+                    Text.translatable(
+                        "factions.command.rank.demote.success",
+                        target.getName().getString(),
+                        Text.translatable("factions.command.rank." + User.get(target.getUuid()).getRankName())
+                    )
+                )
+                    .prependFaction(faction).send(player, false);
 
                 return 1;
             }
 
         new Message(Text.translatable("factions.command.rank.demote.fail.not_in_faction", target.getName().getString()))
-                .fail().send(player, false);
+            .fail().send(player, false);
         return 0;
     }
 
@@ -127,8 +141,7 @@ public class RankCommand implements Command {
         }
     }
 
-    private int transfer(CommandContext<ServerCommandSource> context)
-            throws CommandSyntaxException {
+    private int transfer(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity target = EntityArgumentType.getPlayer(context, "player");
 
         ServerCommandSource source = context.getSource();
@@ -136,7 +149,7 @@ public class RankCommand implements Command {
 
         if (target.getUuid().equals(player.getUuid())) {
             new Message(Text.translatable("factions.command.rank.transfer.fail.self"))
-                    .fail().send(player, false);
+                .fail().send(player, false);
 
             return 0;
         }
@@ -151,32 +164,50 @@ public class RankCommand implements Command {
             context.getSource().getServer().getPlayerManager().sendCommandTree(target);
 
             new Message(Text.translatable("factions.command.rank.transfer.success", target.getName().getString()))
-                    .prependFaction(Faction.get(targetFaction)).send(player, false);
+                .prependFaction(Faction.get(targetFaction)).send(player, false);
 
             return 1;
         }
 
         new Message(
-                Text.translatable("factions.command.rank.transfer.fail.not_in_faction", target.getName().getString()))
-                .fail().send(player, false);
+            Text.translatable("factions.command.rank.transfer.fail.not_in_faction", target.getName().getString())
+        )
+            .fail().send(player, false);
         return 0;
     }
 
     public LiteralCommandNode<ServerCommandSource> getNode() {
-        return CommandManager.literal("rank").requires(Requires.isLeader())
-                .then(CommandManager.literal("promote")
-                        .requires(Requires.hasPerms("factions.rank.promote", 0))
-                        .then(CommandManager.argument("player", EntityArgumentType.player())
-                                .executes(this::promote)))
-                .then(CommandManager.literal("demote")
-                        .requires(Requires.hasPerms("factions.rank.demote", 0))
-                        .then(CommandManager.argument("player", EntityArgumentType.player())
-                                .executes(this::demote)))
-                .then(CommandManager.literal("transfer")
-                        .requires(Requires.multiple(Requires.hasPerms("factions.rank.transfer", 0),
-                                Requires.isOwner()))
-                        .then(CommandManager.argument("player", EntityArgumentType.player())
-                                .executes(this::transfer)))
-                .build();
+        return CommandManager.literal("rank")
+            .requires(Requires.isLeader())
+            .then(
+                CommandManager.literal("promote")
+                    .requires(Requires.hasPerms("factions.rank.promote", 0))
+                    .then(
+                        CommandManager.argument("player", EntityArgumentType.player())
+                            .executes(this::promote)
+                    )
+            )
+            .then(
+                CommandManager.literal("demote")
+                    .requires(Requires.hasPerms("factions.rank.demote", 0))
+                    .then(
+                        CommandManager.argument("player", EntityArgumentType.player())
+                            .executes(this::demote)
+                    )
+            )
+            .then(
+                CommandManager.literal("transfer")
+                    .requires(
+                        Requires.multiple(
+                            Requires.hasPerms("factions.rank.transfer", 0),
+                            Requires.isOwner()
+                        )
+                    )
+                    .then(
+                        CommandManager.argument("player", EntityArgumentType.player())
+                            .executes(this::transfer)
+                    )
+            )
+            .build();
     }
 }

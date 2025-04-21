@@ -56,36 +56,41 @@ public class AdminCommand implements Command {
     }
 
     private int power(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().getPlayer();
+        ServerPlayerEntity initiator = context.getSource().getPlayer();
 
         Faction target = Faction.getByName(StringArgumentType.getString(context, "faction"));
         int power = IntegerArgumentType.getInteger(context, "power");
 
+        execPower(initiator, target, power);
+
+        return 1;
+    }
+
+    public static void execPower(ServerPlayerEntity initiator, Faction target, int power) {
         target.addAdminPower(power);
 
         if (power != 0) {
             if (power > 0) {
                 new Message(
-                        Text.translatable("factions.gui.power.success.added.admin",
-                                player.getName().getString(),
+                        Text.translatable("factions.gui.power.success.added.faction",
+                                initiator.getName().getString(),
                                 power))
                         .send(target);
-                new Message(Text.translatable("factions.gui.power.success.added.faction", power))
-                        .send(player, false);
+                new Message(Text.translatable("factions.gui.power.success.added.admin", power))
+                        .send(initiator, false);
             } else {
                 new Message(
-                        Text.translatable("factions.gui.power.success.removed.admin",
-                                player.getName().getString(),
+                        Text.translatable("factions.gui.power.success.removed.faction",
+                                initiator.getName().getString(),
                                 power))
                         .send(target);
-                new Message(Text.translatable("factions.gui.power.success.removed.faction", power))
-                        .send(player, false);
+                new Message(Text.translatable("factions.gui.power.success.removed.admin", power))
+                        .send(initiator, false);
             }
         } else {
-            new Message(Text.translatable("factions.gui.power.success.nochange")).fail().send(player, false);
+            new Message(Text.translatable("factions.gui.power.success.nochange"))
+                .fail().send(initiator, false);
         }
-
-        return 1;
     }
 
     private int spoof(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
