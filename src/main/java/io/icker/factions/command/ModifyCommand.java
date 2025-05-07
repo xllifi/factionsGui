@@ -58,7 +58,7 @@ public class ModifyCommand implements Command {
         }
 
         if (FactionsMod.CONFIG.DISPLAY.NAME_MAX_LENGTH >= 0
-                & FactionsMod.CONFIG.DISPLAY.NAME_MAX_LENGTH > name.length()) {
+                & name.length() > FactionsMod.CONFIG.DISPLAY.NAME_MAX_LENGTH) {
             throw new Exception(Localization.raw("factions.command.modify.name.fail.name_too_long", player));
         }
 
