@@ -293,5 +293,9 @@
 
     "factions.factionless": "[FACTIONLESS]",
     "factions.default_description": "No description set",
-    "factions.default_motd": "No faction MOTD set"
+    "factions.default_motd": "No faction MOTD set",
+
+    "factions.papi.factionless": "FACTIONLESS",
+    "factions.papi.chat.global": "Global chat",
+    "factions.papi.chat.faction": "Faction chat"
 }

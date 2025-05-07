@@ -8,12 +8,11 @@ import io.icker.factions.api.persistents.Faction;
 import io.icker.factions.api.persistents.User;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public class PlaceholdersWrapper {
-    private static final Text UNFORMATTED_NULL = Text.of("N/A");
+    private static final Text UNFORMATTED_NULL = Text.translatable("factions.papi.factionless");
     private static final Text FORMATTED_NULL =
             UNFORMATTED_NULL.copy().formatted(Formatting.DARK_GRAY);
 
@@ -46,9 +45,9 @@ public class PlaceholdersWrapper {
 
         register("chat", (member) -> {
             if (member.chat == User.ChatMode.GLOBAL || !member.isInFaction())
-                return Text.of("Global Chat");
+                return Text.translatable("factions.papi.chat.global");
 
-            return Text.of("Faction Chat");
+            return Text.translatable("factions.papi.chat.faction");
         });
 
         register("rank", (member) -> {
@@ -60,7 +59,7 @@ public class PlaceholdersWrapper {
 
         register("color", (member) -> {
             if (!member.isInFaction())
-                return FORMATTED_NULL;
+                return Text.of("dark_gray");
 
             return Text.of(member.getFaction().getColor().getName());
         });
