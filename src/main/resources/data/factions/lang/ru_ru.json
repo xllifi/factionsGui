@@ -53,6 +53,7 @@
     "factions.gui.list.title": "Список фракций",
     "factions.gui.list.entry.view_info": "ЛКМ, чтобы посмотреть данные фракции.",
     "factions.gui.list.entry.teleport": "ПКМ, чтобы телепортироваться к дому фракции.",
+    "factions.gui.list.entry.declare": "Выбросьте (Q), чтобы изменить отношения.",
 
     "factions.gui.members.title": "Участники «%s» (%s)",
     "factions.gui.members.entry.unknown_player": "Нет информации",
@@ -125,6 +126,11 @@
     "factions.gui.modify.faction_type.public": "Открытая",
     "factions.gui.modify.faction_type.invite": "По приглашению",
 
+    "factions.gui.declare.title": "Объявить %s...",
+    "factions.gui.declare.enemy": "Врагами",
+    "factions.gui.declare.neutral": "Нейтральными",
+    "factions.gui.declare.ally": "Союзниками",
+
     "factions.gui.generic.unknown_player": "{Нет данных}",
     "factions.gui.generic.close": "Закрыть",
     "factions.gui.generic.confirm": "Подтвердить",
@@ -133,6 +139,9 @@
     "factions.gui.generic.previous_page": "Пред. страница",
 
     "factions.command.claim.list": "У вас %s захват(ов)",
+    "factions.command.claim.list.level.minecraft:overworld": "Верхний мир",
+    "factions.command.claim.list.level.minecraft:the_nether": "Незер",
+    "factions.command.claim.list.level.minecraft:the_end": "Энд",
     "factions.command.claim.add.fail.already_owned.single": "%s фракция уже владеет этим чанком",
     "factions.command.claim.add.fail.already_owned.single.your": "Ваша",
     "factions.command.claim.add.fail.already_owned.single.another": "Другая",
